@@ -1,0 +1,16 @@
+.location-picker {
+  display: flex;
+  gap: 0.24rem;
+  align-items: center;
+
+  &__select {
+    background: none;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+  }
+}
