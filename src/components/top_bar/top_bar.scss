@@ -1,0 +1,57 @@
+@use "../../styles/variables" as vars;
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding-bottom: 2rem;
+  background-color: vars.$color-bg;
+  gap: 1rem;
+
+  &__profile {
+    flex-shrink: 0;
+  }
+
+  &__profile-image {
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &__notification {
+    flex-shrink: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid vars.$color-brand;
+      outline-offset: 2px;
+    }
+  }
+
+  &__notification-icon {
+    font-size: 2rem;
+    color: vars.$color-brand;
+  }
+}
