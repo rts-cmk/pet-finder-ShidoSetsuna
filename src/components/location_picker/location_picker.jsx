@@ -11,10 +11,24 @@ const locations = [
   { value: "miami", label: "Miami" },
 ];
 
-export default function LocationPicker() {
+export default function LocationPicker({ initialLocation }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (initialLocation) {
+      // Try to find a matching location from the list
+      const matchedLocation = locations.find(
+        (loc) =>
+          loc.label.toLowerCase() === initialLocation.toLowerCase() ||
+          initialLocation.toLowerCase().includes(loc.label.toLowerCase())
+      );
+      if (matchedLocation) {
+        setSelectedLocation(matchedLocation);
+      }
+    }
+  }, [initialLocation]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

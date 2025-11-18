@@ -1,22 +1,27 @@
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { useFetch } from "../../hooks/useFetch";
+import { API_ENDPOINTS } from "../../config/api";
 import LocationPicker from "../location_picker/location_picker";
 import "./top_bar.scss";
 
 export default function TopBar() {
-  // Placeholder image - will be replaced with API data later
-  const profileImage = "https://i.pravatar.cc/150?img=12";
+  const { data: user, loading } = useFetch(API_ENDPOINTS.user);
 
   return (
     <header className="top-bar">
       <div className="top-bar__profile">
-        <img
-          src={profileImage}
-          alt="Profile"
-          className="top-bar__profile-image"
-        />
+        {loading ? (
+          <div className="top-bar__profile-image top-bar__profile-image--loading" />
+        ) : (
+          <img
+            src={user?.image}
+            alt="Profile"
+            className="top-bar__profile-image"
+          />
+        )}
       </div>
 
-      <LocationPicker />
+      <LocationPicker initialLocation={user?.location} />
 
       <button
         type="button"

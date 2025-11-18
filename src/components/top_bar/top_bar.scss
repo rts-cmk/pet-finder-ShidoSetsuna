@@ -1,9 +1,9 @@
 @use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
 
 .top-bar {
   display: flex;
   align-items: center;
-  padding-bottom: 1rem;
   background-color: vars.$color-bg;
   gap: 1rem;
 
@@ -17,7 +17,12 @@
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    @include mixins.neumorphic-shadow;
+
+    &--loading {
+      background-color: vars.$color-text-secondary;
+      opacity: 0.3;
+    }
   }
 
   &__notification {
@@ -31,7 +36,7 @@
     border-radius: 50%;
     background-color: white;
     border: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    @include mixins.neumorphic-shadow;
     cursor: pointer;
     transition: all 0.3s ease;
 
