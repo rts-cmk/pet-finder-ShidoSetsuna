@@ -1,10 +1,12 @@
 @use "../../styles/variables" as vars;
 
 .tag-selector {
-  width: 100%;
+  width: calc(100% + 3rem);
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 1rem 0;
+  padding: 2rem 0;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
   -webkit-overflow-scrolling: touch;
 
   // Hide scrollbar but keep functionality
