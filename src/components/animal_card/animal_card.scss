@@ -2,14 +2,16 @@
 @use "../../styles/mixins" as mixins;
 
 .animal-card {
+  position: relative;
   display: flex;
-  background-color: white;
+  background-color: vars.$color-bg;
   border-radius: 16px;
   overflow: hidden;
   @include mixins.neumorphic-shadow;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   height: 160px;
+  padding-left: 1rem;
 
   &:hover {
     transform: translateY(-4px);
@@ -29,16 +31,16 @@
   &__content {
     flex: 1;
     padding: 1rem;
+    padding-right: 3rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 0.5rem;
+  & > .favourite-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
   }
 
   &__name {
@@ -52,7 +54,8 @@
   &__location {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.24rem;
+    margin-bottom: 0.51rem;
   }
 
   &__location-icon {
@@ -69,7 +72,7 @@
 
   &__description {
     font-family: vars.$font-primary;
-    font-size: vars.$font-size-small;
+    font-size: vars.$font-size-base;
     color: vars.$color-text-secondary;
     margin: 0;
     line-height: 1.5;

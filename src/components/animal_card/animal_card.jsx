@@ -20,13 +20,7 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
       </div>
 
       <div className="animal-card__content">
-        <div className="animal-card__header">
-          <h3 className="animal-card__name">{animal.breed}</h3>
-          <FavouriteButton
-            isFavourite={animal.isFavourite}
-            onToggle={handleFavouriteToggle}
-          />
-        </div>
+        <h3 className="animal-card__name">{animal.breed}</h3>
 
         <div className="animal-card__location">
           <MdLocationPin className="animal-card__location-icon" />
@@ -35,6 +29,11 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
 
         <p className="animal-card__description">{animal.short_description}</p>
       </div>
+
+      <FavouriteButton
+        isFavourite={animal.isFavourite}
+        onToggle={handleFavouriteToggle}
+      />
     </article>
   );
 }
