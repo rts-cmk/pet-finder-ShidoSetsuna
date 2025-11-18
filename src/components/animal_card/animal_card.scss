@@ -12,6 +12,8 @@
   cursor: pointer;
   height: 160px;
   padding-left: 1rem;
+  text-decoration: none;
+  color: inherit;
 
   &:hover {
     transform: translateY(-4px);

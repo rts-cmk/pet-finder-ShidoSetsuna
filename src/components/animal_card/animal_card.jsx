@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { MdLocationPin } from "react-icons/md";
 import FavouriteButton from "../favourite_button/favourite_button";
 import "./animal_card.scss";
@@ -10,7 +11,7 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
   };
 
   return (
-    <article className="animal-card">
+    <Link to={`/animal/${animal.id}`} className="animal-card">
       <div className="animal-card__image-container">
         <img
           src={animal.image}
@@ -34,6 +35,6 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
         isFavourite={animal.isFavourite}
         onToggle={handleFavouriteToggle}
       />
-    </article>
+    </Link>
   );
 }
