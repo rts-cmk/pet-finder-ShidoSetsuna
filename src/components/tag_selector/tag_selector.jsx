@@ -6,13 +6,22 @@ import "./tag_selector.scss";
 
 export default function TagSelector({ onCategoryChange }) {
   const [activeCategory, setActiveCategory] = useState("dogs");
-  const { data: animals, loading, error } = useFetch(API_ENDPOINTS.animals);
+  const {
+    data: categories,
+    loading,
+    error,
+  } = useFetch(API_ENDPOINTS.categories);
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
     if (onCategoryChange) {
       onCategoryChange(category);
     }
+  };
+
+  // Capitalize first letter for display
+  const formatLabel = (category) => {
+    return category.charAt(0).toUpperCase() + category.slice(1);
   };
 
   if (loading) {
@@ -27,26 +36,19 @@ export default function TagSelector({ onCategoryChange }) {
     );
   }
 
-  // Get categories from the animals object
-  const categories = animals ? Object.keys(animals) : [];
-
-  // Capitalize first letter for display
-  const formatLabel = (category) => {
-    return category.charAt(0).toUpperCase() + category.slice(1);
-  };
-
   return (
     <nav className="tag-selector" aria-label="Animal categories">
       <ul className="tag-selector__list">
-        {categories.map((category) => (
-          <li key={category} className="tag-selector__item">
-            <Tags
-              label={formatLabel(category)}
-              isActive={activeCategory === category}
-              onClick={() => handleCategoryClick(category)}
-            />
-          </li>
-        ))}
+        {categories &&
+          categories.map((category) => (
+            <li key={category} className="tag-selector__item">
+              <Tags
+                label={formatLabel(category)}
+                isActive={activeCategory === category}
+                onClick={() => handleCategoryClick(category)}
+              />
+            </li>
+          ))}
       </ul>
     </nav>
   );

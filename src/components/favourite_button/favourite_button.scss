@@ -1,0 +1,39 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.favourite-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  @include mixins.neumorphic-shadow;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid vars.$color-brand;
+    outline-offset: 2px;
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    color: vars.$color-text-secondary;
+    transition: color 0.3s ease;
+  }
+
+  &--active &__icon {
+    color: vars.$color-favourite;
+  }
+}

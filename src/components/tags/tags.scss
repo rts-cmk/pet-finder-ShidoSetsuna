@@ -4,11 +4,12 @@
 .tag {
   padding: 0.5rem 1.25rem;
   border-radius: 64px;
+  min-width: 84px;
   background-color: vars.$color-bg;
   border: none;
   font-family: vars.$font-primary;
   font-size: vars.$font-size-base;
-  font-weight: 400;
+  font-weight: 800;
   color: vars.$color-secondary;
   cursor: pointer;
   transition: all 0.3s ease;

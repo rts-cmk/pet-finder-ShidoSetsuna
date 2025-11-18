@@ -1,14 +1,58 @@
+import { useState } from "react";
+import { useFetch } from "../../hooks/useFetch";
+import { API_BASE_URL } from "../../config/api";
 import TopBar from "../../components/top_bar/top_bar";
 import TagSelector from "../../components/tag_selector/tag_selector";
+import AnimalCard from "../../components/animal_card/animal_card";
 import "./home.scss";
 
 function Home() {
+  const [selectedCategory, setSelectedCategory] = useState("dogs");
+  const {
+    data: animals,
+    loading,
+    error,
+  } = useFetch(`${API_BASE_URL}/${selectedCategory}`);
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const handleFavouriteToggle = (animalId, isFavourite) => {
+    // TODO: Implement favourite logic (localStorage, API, etc.)
+    console.log(`Animal ${animalId} favourite status:`, isFavourite);
+  };
+
   return (
     <main className="home">
       <TopBar />
-      <TagSelector />
-      <h1>Welcome to the Pet App Home Page</h1>
-      <p>Find your perfect pet companion here!</p>
+      <TagSelector onCategoryChange={handleCategoryChange} />
+
+      <section className="home__animals">
+        {loading && <p className="home__message">Loading animals...</p>}
+
+        {error && (
+          <p className="home__message home__message--error">
+            Error loading animals
+          </p>
+        )}
+
+        {!loading && !error && animals && animals.length === 0 && (
+          <p className="home__message">No animals found in this category.</p>
+        )}
+
+        {!loading && !error && animals && animals.length > 0 && (
+          <div className="home__cards">
+            {animals.map((animal) => (
+              <AnimalCard
+                key={animal.id}
+                animal={animal}
+                onFavouriteToggle={handleFavouriteToggle}
+              />
+            ))}
+          </div>
+        )}
+      </section>
     </main>
   );
 }
