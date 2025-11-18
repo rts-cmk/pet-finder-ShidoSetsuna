@@ -94,3 +94,17 @@
   width: 100%;
   flex: none;
 }
+
+// Neumorphic shadow effect
+@mixin neumorphic-shadow {
+  box-shadow: -5px -5px 10px 0px rgba(255, 255, 255, 0.5),
+    5px 5px 10px 0px rgba(170, 170, 204, 0.25),
+    10px 10px 20px 0px rgba(170, 170, 204, 0.5),
+    -10px -10px 20px 0px rgba(255, 255, 255, 1);
+}
+
+// Neumorphic inner shadow effect
+@mixin neumorphic-inner-shadow {
+  box-shadow: inset -2.5px -2.5px 5px 0px rgba(253, 253, 255, 1),
+    inset 2.5px 2.5px 5px 0px rgba(203, 203, 224, 1);
+}
