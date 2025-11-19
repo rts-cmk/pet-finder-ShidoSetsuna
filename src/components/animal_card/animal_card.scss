@@ -11,7 +11,6 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   height: 160px;
-  padding-left: 1rem;
   text-decoration: none;
   color: inherit;
 
@@ -32,8 +31,7 @@
 
   &__content {
     flex: 1;
-    padding: 1rem;
-    padding-right: 3rem;
+    padding: 1rem 3rem 1rem 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
