@@ -33,6 +33,7 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
 
       <FavouriteButton
         isFavourite={animal.isFavourite}
+        animalId={animal.id}
         onToggle={handleFavouriteToggle}
       />
     </Link>

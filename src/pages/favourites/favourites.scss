@@ -1,0 +1,33 @@
+@use "../../styles/variables" as vars;
+
+.favourites {
+  padding: 1.5rem 1.5rem 6rem;
+
+  &__title {
+    font-family: vars.$font-primary;
+    font-size: 2rem;
+    font-weight: 700;
+    color: vars.$color-text-header;
+    margin: 0 0 1.5rem 0;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  &__message {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-secondary;
+    text-align: center;
+    padding: 2rem 0;
+    margin: 0;
+
+    &--error {
+      color: vars.$color-favourite;
+    }
+  }
+}

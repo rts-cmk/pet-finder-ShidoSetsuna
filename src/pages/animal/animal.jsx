@@ -1,5 +1,4 @@
 import { useLoaderData, useNavigate } from "react-router";
-import { MdLocationPin } from "react-icons/md";
 import backgroundSvg from "../../assets/animal_background.svg?react";
 import AnimalTags from "../../components/animal_tags/animal_tags";
 import { FiMapPin } from "react-icons/fi";
