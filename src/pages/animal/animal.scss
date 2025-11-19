@@ -2,22 +2,26 @@
 @use "../../styles/mixins" as mixins;
 
 .animal-page {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: vars.$color-bg;
+  overflow: hidden;
 
   &__header {
     position: relative;
-    height: 50vh;
-    min-height: 400px;
-    overflow: visible;
+    flex-shrink: 0;
+    height: 40vh;
+    min-height: 300px;
+    max-height: 450px;
+    overflow: hidden;
   }
 
   &__background {
     width: 100%;
     height: auto;
     display: block;
+    min-height: 100%;
   }
 
   &__image {
@@ -34,13 +38,15 @@
     flex: 1;
     background-color: vars.$color-bg;
     border-radius: 31px 31px 0 0;
-    margin-top: -64px;
-    padding: 1.5rem 1.5rem;
+    margin-top: -31px;
+    padding: 1.5rem 1.5rem 2rem;
     position: relative;
     z-index: 3;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    overflow-y: auto;
+    min-height: 0;
   }
 
   &__info {
@@ -88,5 +94,15 @@
     @include mixins.button-full-width;
     font-weight: 800;
     font-size: vars.$font-size-medium;
+
+    @media (max-height: 800px) {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      width: auto;
+      padding: 0.75rem 1.5rem;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
   }
 }

@@ -41,36 +41,39 @@ function Home() {
   };
 
   return (
-    <main className="home">
-      <TopBar user={loaderData.user} />
-      <TagSelector onCategoryChange={handleCategoryChange} />
+    <div className="home_container">
+      <header>
+        <TopBar user={loaderData.user} />
+        <TagSelector onCategoryChange={handleCategoryChange} />
+      </header>
+      <main className="home">
+        <section className="home__animals">
+          {loading && <p className="home__message">Loading animals...</p>}
 
-      <section className="home__animals">
-        {loading && <p className="home__message">Loading animals...</p>}
+          {error && (
+            <p className="home__message home__message--error">
+              Error loading animals
+            </p>
+          )}
 
-        {error && (
-          <p className="home__message home__message--error">
-            Error loading animals
-          </p>
-        )}
+          {!loading && !error && animals && animals.length === 0 && (
+            <p className="home__message">No animals found in this category.</p>
+          )}
 
-        {!loading && !error && animals && animals.length === 0 && (
-          <p className="home__message">No animals found in this category.</p>
-        )}
-
-        {!loading && !error && animals && animals.length > 0 && (
-          <div className="home__cards">
-            {animals.map((animal) => (
-              <AnimalCard
-                key={animal.id}
-                animal={animal}
-                onFavouriteToggle={handleFavouriteToggle}
-              />
-            ))}
-          </div>
-        )}
-      </section>
-    </main>
+          {!loading && !error && animals && animals.length > 0 && (
+            <div className="home__cards">
+              {animals.map((animal) => (
+                <AnimalCard
+                  key={animal.id}
+                  animal={animal}
+                  onFavouriteToggle={handleFavouriteToggle}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      </main>
+    </div>
   );
 }
 

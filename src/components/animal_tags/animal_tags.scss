@@ -3,7 +3,7 @@
 
 .animal-tags {
   display: flex;
-  gap: 1rem;
+  gap: 3.1rem;
 
   &__tag {
     display: flex;
@@ -45,4 +45,10 @@
 
 .gender {
   color: vars.$color-gender;
+}
+
+@media (max-width: 350px) {
+  .animal-tags {
+    gap: 1.5rem;
+  }
 }
