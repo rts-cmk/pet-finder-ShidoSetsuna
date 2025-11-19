@@ -108,3 +108,35 @@
   box-shadow: inset -2.5px -2.5px 5px 0px rgba(253, 253, 255, 1),
     inset 2.5px 2.5px 5px 0px rgba(203, 203, 224, 1);
 }
+
+// Custom tap highlight mixin
+@mixin custom-tap-highlight($color: rgba(0, 123, 255, 0.15)) {
+  // 1. Remove the default mobile highlight
+  -webkit-tap-highlight-color: transparent;
+
+  // 2. Set up the parent container
+  // Position relative is necessary for the absolute pseudo-element
+  position: relative;
+
+  // Ensure the transition is smooth
+  transition: background-color 0.15s ease-in-out;
+
+  // 3. Create the pseudo-element overlay
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none; // Allows clicks to pass through to the element
+    background-color: transparent; // Start transparent
+    transition: background-color 0.15s ease-in-out;
+    border-radius: inherit; // Match parent's border-radius
+  }
+
+  // 4. Apply the color on the :active state
+  &:active::before {
+    background-color: $color; // Apply the custom color (default is bluish)
+  }
+}

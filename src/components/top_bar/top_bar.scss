@@ -9,6 +9,8 @@
 
   &__profile {
     flex-shrink: 0;
+    border-radius: 50%;
+    @include mixins.custom-tap-highlight(rgba(37, 180, 223, 0.2));
   }
 
   &__profile-image {
@@ -56,6 +58,7 @@
     @include mixins.neumorphic-shadow;
     cursor: pointer;
     transition: all 0.3s ease;
+    @include mixins.custom-tap-highlight(rgba(37, 180, 223, 0.2));
 
     &:hover {
       transform: translateY(-2px);

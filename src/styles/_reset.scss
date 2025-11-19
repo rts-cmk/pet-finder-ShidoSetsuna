@@ -1,3 +1,4 @@
+@use "mixins" as mixies;
 @use "variables" as vars;
 //Default resets
 *,
@@ -6,12 +7,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: #ffffff00;
 }
 body {
   margin: 0;
   font-family: vars.$font-primary;
   background-color: vars.$color-bg;
   color: vars.$color-text-primary;
+  -webkit-tap-highlight-color: #ffffff00;
 }
 a {
   text-decoration: none;
