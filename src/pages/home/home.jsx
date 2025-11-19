@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router";
 import { API_BASE_URL } from "../../config/api";
 import TopBar from "../../components/top_bar/top_bar";
 import TagSelector from "../../components/tag_selector/tag_selector";
@@ -7,12 +7,29 @@ import AnimalCard from "../../components/animal_card/animal_card";
 import "./home.scss";
 
 function Home() {
-  const [selectedCategory, setSelectedCategory] = useState("dogs");
-  const {
-    data: animals,
-    loading,
-    error,
-  } = useFetch(`${API_BASE_URL}/${selectedCategory}`);
+  const loaderData = useLoaderData();
+  const [selectedCategory, setSelectedCategory] = useState(loaderData.category);
+  const [animals, setAnimals] = useState(loaderData.animals);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`${API_BASE_URL}/${selectedCategory}`);
+        const data = await response.json();
+        setAnimals(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnimals();
+  }, [selectedCategory]);
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -25,7 +42,7 @@ function Home() {
 
   return (
     <main className="home">
-      <TopBar />
+      <TopBar user={loaderData.user} />
       <TagSelector onCategoryChange={handleCategoryChange} />
 
       <section className="home__animals">

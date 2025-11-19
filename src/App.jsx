@@ -13,6 +13,9 @@ import ErrorPage from "./pages/error/error.jsx";
 import Onboarding from "./components/onboarding/onboarding.jsx";
 //Layout
 import Layout from "./layout/layout.jsx";
+//loaders
+import { homeLoader } from "./loaders/home_loader.js";
+import { animalDetailsLoader } from "./loaders/animal_details_loader.js";
 
 const hasSeenOnboarding = () => {
   return localStorage.getItem("skip_onboarding") === "true";
@@ -27,10 +30,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+        loader: homeLoader,
       },
       {
         path: "animal/:id",
         element: <Animal />,
+        loader: animalDetailsLoader,
       },
       {
         path: "profile/:id",

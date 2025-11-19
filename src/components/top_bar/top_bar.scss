@@ -25,6 +25,23 @@
     }
   }
 
+  &__profile-placeholder {
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    background-color: white;
+    border: 3px solid white;
+    @include mixins.neumorphic-shadow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__profile-icon {
+    font-size: 4rem;
+    color: vars.$color-brand;
+  }
+
   &__notification {
     flex-shrink: 0;
     margin-left: auto;
