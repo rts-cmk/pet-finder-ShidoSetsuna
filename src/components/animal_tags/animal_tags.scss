@@ -4,32 +4,30 @@
 .animal-tags {
   display: flex;
   gap: 1rem;
-  align-items: center;
 
   &__tag {
     display: flex;
     align-items: center;
+    padding: 1rem 0 0.5rem 0;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: white;
     border-radius: 20px;
-    @include mixins.neumorphic-shadow;
   }
 
   &__icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background-color: vars.$color-brand;
+    background-color: vars.$color-bg;
     flex-shrink: 0;
+    @include mixins.neumorphic-shadow;
   }
 
   &__icon {
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   &__label {
@@ -39,4 +37,12 @@
     font-weight: 500;
     white-space: nowrap;
   }
+}
+
+.breed {
+  color: vars.$color-breed;
+}
+
+.gender {
+  color: vars.$color-gender;
 }

@@ -1,18 +1,92 @@
 @use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
 
 .animal-page {
-  width: 100%;
-  height: 85vh;
-  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: vars.$color-bg;
 
   &__header {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    height: 50vh;
+    min-height: 400px;
+    overflow: visible;
   }
 
   &__background {
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  &__image {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    width: 280px;
+    height: 280px;
+    object-fit: contain;
+    z-index: 2;
+  }
+
+  &__content {
+    flex: 1;
+    background-color: vars.$color-bg;
+    border-radius: 31px 31px 0 0;
+    margin-top: -64px;
+    padding: 1.5rem 1.5rem;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__name {
+    font-family: vars.$font-primary;
+    font-size: 2rem;
+    font-weight: 700;
+    color: vars.$color-text-header;
+    margin: 0;
+  }
+
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__location-icon {
+    color: vars.$color-brand;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  &__location-text {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-secondary;
+  }
+
+  &__description {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-medium;
+    color: vars.$color-text-secondary;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  &__back-button {
+    @include mixins.button-filled;
+    @include mixins.button-full-width;
+    font-weight: 800;
+    font-size: vars.$font-size-medium;
   }
 }
