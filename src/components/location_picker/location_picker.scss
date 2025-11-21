@@ -1,0 +1,98 @@
+@use "../../styles/variables" as vars;
+
+.location-picker {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  position: relative;
+
+  &__icon {
+    color: vars.$color-brand;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    font-weight: 500;
+    color: vars.$color-text-header;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+
+    &:focus-visible {
+      outline: 2px solid vars.$color-brand;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+
+  &__selected {
+    line-height: 1;
+  }
+
+  &__arrow {
+    color: vars.$color-brand;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    min-width: 200px;
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  &__option {
+    padding: 0.75rem 1.25rem;
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-primary;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      background-color: #e8e4f3;
+      outline: none;
+    }
+
+    &--selected {
+      background-color: vars.$color-brand;
+      color: white;
+      font-weight: 500;
+
+      &:hover,
+      &:focus {
+        background-color: vars.$color-brand;
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.animal-tags {
+  display: flex;
+  gap: 3.1rem;
+
+  &__tag {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0 0.5rem 0;
+    gap: 0.5rem;
+    border-radius: 20px;
+  }
+
+  &__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: vars.$color-bg;
+    flex-shrink: 0;
+    @include mixins.neumorphic-shadow;
+  }
+
+  &__icon {
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  &__label {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-header;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
+
+.breed {
+  color: vars.$color-breed;
+}
+
+.gender {
+  color: vars.$color-gender;
+}
+
+@media (max-width: 350px) {
+  .animal-tags {
+    gap: 1.5rem;
+  }
+}

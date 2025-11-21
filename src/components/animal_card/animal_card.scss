@@ -1,0 +1,86 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.animal-card {
+  position: relative;
+  display: flex;
+  background-color: vars.$color-bg;
+  border-radius: 16px;
+  overflow: hidden;
+  @include mixins.neumorphic-shadow;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  height: 160px;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  &__image-container {
+    flex: 0 0 33.333%;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__content {
+    flex: 1;
+    padding: 1rem 3rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  & > .favourite-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  &__name {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-header;
+    font-weight: 700;
+    color: vars.$color-text-header;
+    margin: 0;
+  }
+
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: 0.24rem;
+    margin-bottom: 0.51rem;
+  }
+
+  &__location-icon {
+    color: vars.$color-brand;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  &__location-text {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-small;
+    color: vars.$color-text-secondary;
+  }
+
+  &__description {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-secondary;
+    margin: 0;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,0 +1,142 @@
+@use "variables" as vars;
+@use "sass:color";
+
+// Button mixin with customizable properties
+@mixin button-base(
+  $bg-color: transparent,
+  $text-color: vars.$color-brand,
+  $border-color: vars.$color-brand,
+  $border-width: 2px,
+  $padding: 1rem 1.5rem,
+  $border-radius: 64px,
+  $font-size: 1rem,
+  $font-weight: 400,
+  $hover-bg: null,
+  $hover-text: null,
+  $hover-border: null
+) {
+  flex: 1;
+  padding: $padding;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  background-color: $bg-color;
+  color: $text-color;
+  font-family: vars.$font-primary;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-height: 64px;
+
+  // Responsive padding and font size for smaller screens
+  @media (max-width: 480px) {
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  &:hover:not(:disabled) {
+    @if $hover-bg {
+      background-color: $hover-bg;
+    }
+    @if $hover-text {
+      color: $hover-text;
+    }
+    @if $hover-border {
+      border-color: $hover-border;
+    }
+
+    // Default hover effect if no specific hover colors provided
+    @if not $hover-bg and not $hover-text and not $hover-border {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-filled(
+  $bg-color: vars.$color-brand,
+  $text-color: vars.$color-bg
+) {
+  @include button-base(
+    $bg-color: $bg-color,
+    $text-color: $text-color,
+    $border-color: $bg-color,
+    $hover-bg: color.adjust($bg-color, $lightness: -10%)
+  );
+}
+
+// Size variants
+@mixin button-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 32px;
+}
+
+@mixin button-large {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
+  border-radius: 72px;
+}
+
+// Special variants
+@mixin button-rounded($radius: 50%) {
+  border-radius: $radius;
+  aspect-ratio: 1;
+  padding: 1rem;
+}
+
+@mixin button-full-width {
+  width: 100%;
+  flex: none;
+}
+
+// Neumorphic shadow effect
+@mixin neumorphic-shadow {
+  box-shadow: -5px -5px 10px 0px rgba(255, 255, 255, 0.5),
+    5px 5px 10px 0px rgba(170, 170, 204, 0.25),
+    10px 10px 20px 0px rgba(170, 170, 204, 0.5),
+    -10px -10px 20px 0px rgba(255, 255, 255, 1);
+}
+
+// Neumorphic inner shadow effect
+@mixin neumorphic-inner-shadow {
+  box-shadow: inset -2.5px -2.5px 5px 0px rgba(253, 253, 255, 1),
+    inset 2.5px 2.5px 5px 0px rgba(203, 203, 224, 1);
+}
+
+// Custom tap highlight mixin
+@mixin custom-tap-highlight($color: rgba(0, 123, 255, 0.15)) {
+  // 1. Remove the default mobile highlight
+  -webkit-tap-highlight-color: transparent;
+
+  // 2. Set up the parent container
+  // Position relative is necessary for the absolute pseudo-element
+  position: relative;
+
+  // Ensure the transition is smooth
+  transition: background-color 0.15s ease-in-out;
+
+  // 3. Create the pseudo-element overlay
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none; // Allows clicks to pass through to the element
+    background-color: transparent; // Start transparent
+    transition: background-color 0.15s ease-in-out;
+    border-radius: inherit; // Match parent's border-radius
+  }
+
+  // 4. Apply the color on the :active state
+  &:active::before {
+    background-color: $color; // Apply the custom color (default is bluish)
+  }
+}

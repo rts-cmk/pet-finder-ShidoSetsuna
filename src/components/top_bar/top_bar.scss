@@ -1,0 +1,82 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  background-color: vars.$color-bg;
+  gap: 1rem;
+
+  &__profile {
+    flex-shrink: 0;
+    border-radius: 50%;
+    @include mixins.custom-tap-highlight(rgba(37, 180, 223, 0.2));
+  }
+
+  &__profile-image {
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    @include mixins.neumorphic-shadow;
+
+    &--loading {
+      background-color: vars.$color-text-secondary;
+      opacity: 0.3;
+    }
+  }
+
+  &__profile-placeholder {
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    background-color: white;
+    border: 3px solid white;
+    @include mixins.neumorphic-shadow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__profile-icon {
+    font-size: 4rem;
+    color: vars.$color-brand;
+  }
+
+  &__notification {
+    flex-shrink: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    @include mixins.neumorphic-shadow;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    @include mixins.custom-tap-highlight(rgba(37, 180, 223, 0.2));
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid vars.$color-brand;
+      outline-offset: 2px;
+    }
+  }
+
+  &__notification-icon {
+    font-size: 2rem;
+    color: vars.$color-brand;
+  }
+}

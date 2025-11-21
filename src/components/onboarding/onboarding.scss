@@ -1,0 +1,57 @@
+@use "../../styles/mixins" as mixies;
+@use "../../styles/variables" as vars;
+
+.onboarding {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: vars.$color-bg;
+  overflow: auto;
+
+  &__main-content {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  &__figure {
+    width: 100%;
+    height: auto;
+  }
+
+  &__text {
+    margin: 0 0 4rem 0;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-header;
+  }
+
+  &__description {
+    text-align: center;
+    color: vars.$color-text-secondary;
+    max-width: 400px;
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+  }
+
+  &__skip-button {
+    @include mixies.button-filled(
+      $bg-color: vars.$color-brand,
+      $text-color: vars.$color-text-reverse
+    );
+    margin-bottom: 1rem;
+    padding: 0 42%;
+  }
+}

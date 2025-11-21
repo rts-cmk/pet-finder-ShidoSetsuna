@@ -1,0 +1,38 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.tag {
+  padding: 0.5rem 1.25rem;
+  border-radius: 64px;
+  min-width: 84px;
+  background-color: vars.$color-bg;
+  border: none;
+  font-family: vars.$font-primary;
+  font-size: vars.$font-size-base;
+  font-weight: 800;
+  color: vars.$color-secondary;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: -5px -5px 10px 0px rgba(255, 255, 255, 0.5),
+    5px 5px 10px 0px rgba(170, 170, 204, 0.25),
+    10px 10px 20px 0px rgba(170, 170, 204, 0.5),
+    -10px -10px 20px 0px rgba(255, 255, 255, 1);
+  white-space: nowrap;
+  @include mixins.custom-tap-highlight(rgba(37, 180, 223, 0.2));
+
+  &:hover:not(&--active) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  &--active {
+    background-color: vars.$color-brand;
+    color: white;
+    box-shadow: 0 4px 12px rgba(87, 65, 157, 0.3);
+  }
+
+  &:focus-visible {
+    outline: 2px solid vars.$color-brand;
+    outline-offset: 2px;
+  }
+}
