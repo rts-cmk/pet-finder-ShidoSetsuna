@@ -1,0 +1,86 @@
+@use "../../styles/mixins" as mixins;
+@use "../../styles/variables" as vars;
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 2rem;
+  text-align: center;
+  padding: 1rem;
+  background-color: vars.$color-bg;
+  @include mixins.neumorphic-shadow;
+
+  &__img-container {
+    width: 140px;
+    height: 140px;
+    display: flex;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    @include mixins.neumorphic-shadow;
+  }
+
+  &__image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    @include mixins.neumorphic-shadow;
+  }
+
+  &__name {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-header;
+    font-weight: 700;
+    color: vars.$color-text-header;
+    margin: 0.5rem 0 0 0;
+  }
+
+  &__location {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-primary;
+    margin: 0;
+  }
+
+  &__bio {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-primary;
+    margin: 0.5rem 0;
+    max-width: 600px;
+  }
+
+  &__favorites {
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  &__favorites-title {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-header;
+    font-weight: 700;
+    color: vars.$color-text-header;
+    margin: 0 0 1rem 0;
+    text-align: left;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__no-favorites {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    color: vars.$color-text-primary;
+    text-align: center;
+    padding: 2rem;
+  }
+}

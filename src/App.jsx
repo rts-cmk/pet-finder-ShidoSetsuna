@@ -16,6 +16,7 @@ import Layout from "./layout/layout.jsx";
 //loaders
 import { homeLoader } from "./loaders/home_loader.js";
 import { animalDetailsLoader } from "./loaders/animal_details_loader.js";
+import { profileDetailsLoader } from "./loaders/profile_details_loader.js";
 
 const hasSeenOnboarding = () => {
   return localStorage.getItem("skip_onboarding") === "true";
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       {
         path: "profile/:id",
         element: <Profile />,
+        loader: profileDetailsLoader,
       },
       {
         path: "favourites",

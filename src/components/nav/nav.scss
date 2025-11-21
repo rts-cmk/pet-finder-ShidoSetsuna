@@ -34,7 +34,7 @@
     justify-content: center;
     width: 56px;
     height: 56px;
-    background-color: white;
+    background-color: vars.$color-text-reverse;
     border-radius: 50%;
     @include mixins.neumorphic-shadow;
     transition: box-shadow 0.3s ease, transform 0.3s ease, color 0.3s ease;
@@ -48,14 +48,18 @@
 
     &--active {
       background-color: white;
-      color: #5533ea;
       transform: translateY(-2px);
       @include mixins.neumorphic-inner-shadow;
+
+      svg {
+        color: vars.$color-nav-icons-active !important;
+      }
     }
 
     svg {
       width: 24px;
       height: 24px;
+      color: vars.$color-nav-icons;
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { MdLocationPin } from "react-icons/md";
+import { FiMapPin } from "react-icons/fi";
 import FavouriteButton from "../favourite_button/favourite_button";
 import "./animal_card.scss";
 
@@ -24,7 +24,7 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
         <h3 className="animal-card__name">{animal.breed}</h3>
 
         <div className="animal-card__location">
-          <MdLocationPin className="animal-card__location-icon" />
+          <FiMapPin className="animal-card__location-icon" />
           <span className="animal-card__location-text">{animal.location}</span>
         </div>
 
