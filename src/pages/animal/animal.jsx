@@ -10,7 +10,7 @@ function Animal() {
   const BackgroundSvg = backgroundSvg;
 
   return (
-    <div className="animal-page">
+    <main className="animal-page">
       <div className="animal-page__header">
         <BackgroundSvg className="animal-page__background" />
         <img
@@ -43,7 +43,7 @@ function Animal() {
           Back
         </button>
       </div>
-    </div>
+    </main>
   );
 }
 
