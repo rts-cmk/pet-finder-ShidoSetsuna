@@ -1,0 +1,6 @@
+@use "../../styles/mixins" as mixins;
+@use "../../styles/variables" as vars;
+
+.edit-animal-button {
+  @include mixins.button-filled();
+}

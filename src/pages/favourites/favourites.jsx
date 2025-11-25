@@ -31,14 +31,21 @@ function Favourites() {
 
         // Fetch all animals from all categories
         const allAnimalsPromises = categories.map((category) =>
-          fetch(`${API_BASE_URL}/${category}`).then((res) => res.json())
+          fetch(`${API_BASE_URL}/${category}`).then((res) =>
+            res
+              .json()
+              .then((animals) =>
+                animals.map((animal) => ({ ...animal, category }))
+              )
+          )
         );
         const allAnimalsArrays = await Promise.all(allAnimalsPromises);
         const allAnimals = allAnimalsArrays.flat();
 
         // Filter for favourited animals
+        // favouriteIds format: ["dogs[1]", "cats[2]", etc.]
         const favourited = allAnimals.filter((animal) =>
-          favouriteIds.includes(animal.id)
+          favouriteIds.includes(`${animal.category}[${animal.id}]`)
         );
 
         setFavouriteAnimals(favourited);
@@ -52,22 +59,20 @@ function Favourites() {
     fetchFavourites();
   }, []);
 
-  const handleFavouriteToggle = (animalId, isFavourite) => {
-    // Update localStorage
-    const favouriteIds = JSON.parse(localStorage.getItem("favourites") || "[]");
-
-    let updatedIds;
-    if (isFavourite) {
-      updatedIds = [...favouriteIds, animalId];
-    } else {
-      updatedIds = favouriteIds.filter((id) => id !== animalId);
-      // Remove from displayed list
+  const handleFavouriteToggle = (isFavourite) => {
+    // When an animal is unfavourited, remove it from the display
+    // The FavouriteButton component handles localStorage updates
+    if (!isFavourite) {
+      // Reload favourites from localStorage to sync
+      const favouriteIds = JSON.parse(
+        localStorage.getItem("favourites") || "[]"
+      );
       setFavouriteAnimals((prev) =>
-        prev.filter((animal) => animal.id !== animalId)
+        prev.filter((animal) =>
+          favouriteIds.includes(`${animal.category}[${animal.id}]`)
+        )
       );
     }
-
-    localStorage.setItem("favourites", JSON.stringify(updatedIds));
   };
 
   return (

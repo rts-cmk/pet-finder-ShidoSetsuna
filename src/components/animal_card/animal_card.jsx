@@ -3,7 +3,7 @@ import { FiMapPin } from "react-icons/fi";
 import FavouriteButton from "../favourite_button/favourite_button";
 import "./animal_card.scss";
 
-export default function AnimalCard({ animal, onFavouriteToggle }) {
+export default function AnimalCard({ animal, category, onFavouriteToggle }) {
   const handleFavouriteToggle = (isFav) => {
     if (onFavouriteToggle) {
       onFavouriteToggle(animal.id, isFav);
@@ -11,7 +11,7 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
   };
 
   return (
-    <Link to={`/animal/${animal.id}`} className="animal-card">
+    <Link to={`/animal/${category}/${animal.id}`} className="animal-card">
       <div className="animal-card__image-container">
         <img
           src={animal.image}
@@ -34,6 +34,7 @@ export default function AnimalCard({ animal, onFavouriteToggle }) {
       <FavouriteButton
         isFavourite={animal.isFavourite}
         animalId={animal.id}
+        animalCategory={category}
         onToggle={handleFavouriteToggle}
       />
     </Link>

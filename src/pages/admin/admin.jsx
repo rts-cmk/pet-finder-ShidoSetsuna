@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { API_BASE_URL } from "../../config/api";
 import "./admin.scss";
 
 function Admin() {
+  const [searchParams] = useSearchParams();
+  const animalId = searchParams.get("animalId");
+  const categoryParam = searchParams.get("category");
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editingAnimal, setEditingAnimal] = useState(null);
+  const [originalCategory, setOriginalCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showNewCategory, setShowNewCategory] = useState(false);
@@ -16,6 +23,7 @@ function Admin() {
     long_description: "",
   });
   const [message, setMessage] = useState({ text: "", type: "" });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Fetch existing categories
@@ -23,10 +31,50 @@ function Admin() {
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
-        if (data.length > 0) setSelectedCategory(data[0]);
+        if (data.length > 0 && !isEditMode) setSelectedCategory(data[0]);
       })
       .catch((err) => console.error("Error fetching categories:", err));
   }, []);
+
+  useEffect(() => {
+    // If animalId and category are in URL, load that animal for editing
+    if (animalId && categoryParam) {
+      setLoading(true);
+      setIsEditMode(true);
+
+      // Fetch the specific animal from the specified category
+      fetch(`${API_BASE_URL}/${categoryParam}`)
+        .then((res) => res.json())
+        .then((animals) => {
+          const foundAnimal = animals.find((a) => a.id === parseInt(animalId));
+
+          if (foundAnimal) {
+            setEditingAnimal(foundAnimal);
+            setSelectedCategory(categoryParam);
+            setOriginalCategory(categoryParam);
+            setFormData({
+              breed: foundAnimal.breed || "",
+              gender: foundAnimal.gender || "male",
+              location: foundAnimal.location || "",
+              image: foundAnimal.image || "",
+              short_description: foundAnimal.short_description || "",
+              long_description: foundAnimal.long_description || "",
+            });
+          } else {
+            setMessage({
+              text: `Animal with ID ${animalId} not found in ${categoryParam}`,
+              type: "error",
+            });
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error loading animal:", err);
+          setMessage({ text: "Error loading animal data", type: "error" });
+          setLoading(false);
+        });
+    }
+  }, [animalId, categoryParam]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +92,19 @@ function Admin() {
     } else {
       setShowNewCategory(false);
       setSelectedCategory(value);
+    }
+  };
+
+  const deleteAnimalHandler = async () => {
+    if (!isEditMode || !editingAnimal) return;
+    try {
+      // Delete the animal from its original category
+      await fetch(`${API_BASE_URL}/${originalCategory}/${editingAnimal.id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Error deleting animal:", error);
+      setMessage({ text: "Error deleting animal", type: "error" });
     }
   };
 
@@ -68,54 +129,94 @@ function Admin() {
     }
 
     try {
-      // If adding a new category, add it to the categories list first
-      if (showNewCategory && !categories.includes(categoryToUse)) {
-        await fetch(`${API_BASE_URL}/categories`, {
+      if (isEditMode && editingAnimal) {
+        // UPDATE existing animal
+        const updatedAnimal = {
+          ...editingAnimal,
+          ...formData,
+        };
+
+        // Check if category has changed
+        if (categoryToUse !== originalCategory) {
+          // Delete from old category
+          await fetch(
+            `${API_BASE_URL}/${originalCategory}/${editingAnimal.id}`,
+            {
+              method: "DELETE",
+            }
+          );
+
+          // Add to new category
+          await fetch(`${API_BASE_URL}/${categoryToUse}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedAnimal),
+          });
+        } else {
+          // Same category, just update
+          await fetch(`${API_BASE_URL}/${categoryToUse}/${editingAnimal.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedAnimal),
+          });
+        }
+
+        setMessage({ text: "Animal updated successfully!", type: "success" });
+      } else {
+        // ADD new animal
+        // If adding a new category, add it to the categories list first
+        if (showNewCategory && !categories.includes(categoryToUse)) {
+          await fetch(`${API_BASE_URL}/categories`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify([...categories, categoryToUse]),
+          });
+          setCategories([...categories, categoryToUse]);
+        }
+
+        // Get the next available ID for the category
+        const existingAnimals = await fetch(
+          `${API_BASE_URL}/${categoryToUse}`
+        ).then((res) => res.json());
+        const nextId =
+          existingAnimals.length > 0
+            ? Math.max(...existingAnimals.map((a) => a.id)) + 1
+            : 1;
+
+        // Add the new animal
+        const newAnimal = {
+          id: nextId,
+          ...formData,
+        };
+
+        await fetch(`${API_BASE_URL}/${categoryToUse}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify([...categories, categoryToUse]),
+          body: JSON.stringify(newAnimal),
         });
-        setCategories([...categories, categoryToUse]);
+
+        setMessage({ text: "Animal added successfully!", type: "success" });
       }
 
-      // Get the next available ID for the category
-      const existingAnimals = await fetch(
-        `${API_BASE_URL}/${categoryToUse}`
-      ).then((res) => res.json());
-      const nextId =
-        existingAnimals.length > 0
-          ? Math.max(...existingAnimals.map((a) => a.id)) + 1
-          : 1;
-
-      // Add the new animal
-      const newAnimal = {
-        id: nextId,
-        ...formData,
-      };
-
-      await fetch(`${API_BASE_URL}/${categoryToUse}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newAnimal),
-      });
-
-      setMessage({ text: "Animal added successfully!", type: "success" });
-
-      // Reset form
-      setFormData({
-        breed: "",
-        gender: "male",
-        location: "",
-        image: "",
-        short_description: "",
-        long_description: "",
-      });
-      setNewCategory("");
-      setShowNewCategory(false);
-      setSelectedCategory(categories[0] || "");
+      // Reset form only if not in edit mode
+      if (!isEditMode) {
+        setFormData({
+          breed: "",
+          gender: "male",
+          location: "",
+          image: "",
+          short_description: "",
+          long_description: "",
+        });
+        setNewCategory("");
+        setShowNewCategory(false);
+        setSelectedCategory(categories[0] || "");
+      }
     } catch (error) {
       setMessage({
-        text: "Error adding animal. Please try again.",
+        text: `Error ${
+          isEditMode ? "updating" : "adding"
+        } animal. Please try again.`,
         type: "error",
       });
       console.error("Error:", error);
@@ -124,7 +225,15 @@ function Admin() {
 
   return (
     <main className="admin-page">
-      <h1 className="admin-page__title">Add New Animal</h1>
+      <h1 className="admin-page__title">
+        {isEditMode ? "Edit Animal" : "Add New Animal"}
+      </h1>
+
+      {loading && (
+        <div className="admin-page__message admin-page__message--info">
+          Loading animal data...
+        </div>
+      )}
 
       {message.text && (
         <div
@@ -272,9 +381,20 @@ function Admin() {
           />
         </div>
 
-        <button type="submit" className="admin-page__button">
-          Add Animal
+        <button type="submit" className="admin-page__button--submit">
+          {isEditMode ? "Update Animal" : "Add Animal"}
         </button>
+
+        {isEditMode && (
+          <button
+            type="button"
+            className="admin-page__button admin-page__button--delete"
+            onClick={() => {
+              deleteAnimalHandler();
+            }}>
+            Delete Animal
+          </button>
+        )}
       </form>
     </main>
   );

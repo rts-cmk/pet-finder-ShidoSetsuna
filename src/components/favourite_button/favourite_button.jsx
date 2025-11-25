@@ -6,14 +6,15 @@ export default function FavouriteButton({
   isFavourite = false,
   onToggle,
   animalId,
+  animalCategory,
 }) {
   const [isFav, setIsFav] = useState(isFavourite);
 
   // Sync with localStorage on mount and when animalId changes
   useEffect(() => {
     const favouriteIds = JSON.parse(localStorage.getItem("favourites") || "[]");
-    setIsFav(favouriteIds.includes(animalId));
-  }, [animalId]);
+    setIsFav(favouriteIds.includes(`${animalCategory}[${animalId}]`));
+  }, [animalCategory, animalId]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -23,15 +24,16 @@ export default function FavouriteButton({
 
     // Update localStorage
     const favouriteIds = JSON.parse(localStorage.getItem("favourites") || "[]");
+    const favouriteKey = `${animalCategory}[${animalId}]`;
 
     if (newState) {
       // Adding to favourites
-      if (!favouriteIds.includes(animalId)) {
-        favouriteIds.push(animalId);
+      if (!favouriteIds.includes(favouriteKey)) {
+        favouriteIds.push(favouriteKey);
       }
     } else {
       // Removing from favourites
-      const index = favouriteIds.indexOf(animalId);
+      const index = favouriteIds.indexOf(favouriteKey);
       if (index > -1) {
         favouriteIds.splice(index, 1);
       }

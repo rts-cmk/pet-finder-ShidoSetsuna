@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         loader: homeLoader,
       },
       {
-        path: "animal/:id",
+        path: "animal/:category/:id",
         element: <Animal />,
         loader: animalDetailsLoader,
       },

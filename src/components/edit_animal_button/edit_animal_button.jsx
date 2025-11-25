@@ -7,7 +7,7 @@ export default function EditAnimalButton({ onClick }) {
       className="edit-animal-button"
       onClick={onClick}
       aria-label="Edit Animal">
-      &#9998;
+      edit animal details &#9998;
     </button>
   );
 }
