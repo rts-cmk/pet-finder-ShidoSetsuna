@@ -1,0 +1,91 @@
+@use "../../styles/mixins" as mixins;
+@use "../../styles/variables" as vars;
+
+.category-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__label {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    font-weight: 600;
+    color: vars.$color-text-header;
+  }
+
+  &__select,
+  &__input {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-base;
+    padding: 0.75rem;
+    border: 2px solid vars.$color-bg;
+    border-radius: 0.5rem;
+    background-color: vars.$color-bg;
+    color: vars.$color-text-primary;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: vars.$color-brand;
+      background-color: white;
+    }
+
+    &::placeholder {
+      color: vars.$color-text-secondary;
+    }
+  }
+
+  &__select {
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &__error {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-small;
+    color: #721c24;
+    font-style: italic;
+  }
+
+  &__info {
+    font-family: vars.$font-primary;
+    font-size: vars.$font-size-small;
+    padding: 1rem;
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+    border-radius: 0.5rem;
+
+    strong {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    ol {
+      margin: 0.5rem 0 0 1.5rem;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.25rem;
+      }
+    }
+
+    code {
+      background-color: #0c5460;
+      color: #d1ecf1;
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-family: monospace;
+    }
+  }
+}

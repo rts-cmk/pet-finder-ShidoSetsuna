@@ -14,9 +14,11 @@ export async function profileDetailsLoader({ params }) {
   const categoriesResponse = await fetch(`${API_BASE_URL}/categories`);
   const categories = await categoriesResponse.json();
 
-  // Fetch all animals from all categories
+  // Fetch all animals from all categories and track their category
   const animalPromises = categories.map((category) =>
-    fetch(`${API_BASE_URL}/${category}`).then((res) => res.json())
+    fetch(`${API_BASE_URL}/${category}`)
+      .then((res) => res.json())
+      .then((animals) => animals.map((animal) => ({ ...animal, category })))
   );
   const animalArrays = await Promise.all(animalPromises);
   const allAnimals = animalArrays.flat();

@@ -9,6 +9,8 @@ import Profile from "./pages/profile/profile.jsx";
 import Favourites from "./pages/favourites/favourites.jsx";
 import Chat from "./pages/chat/chat.jsx";
 import Admin from "./pages/admin/admin.jsx";
+import AdminNew from "./pages/admin/sub_pages/admin_new.jsx";
+import AdminEdit from "./pages/admin/sub_pages/admin_edit.jsx";
 import ErrorPage from "./pages/error/error.jsx";
 //components
 import Onboarding from "./components/onboarding/onboarding.jsx";
@@ -55,6 +57,17 @@ const router = createBrowserRouter([
       {
         path: "admin",
         element: <Admin />,
+        children: [
+          {
+            index: true,
+            element: <AdminNew />,
+          },
+          {
+            path: "edit",
+            element: <AdminEdit />,
+            loader: animalDetailsLoader,
+          },
+        ],
       },
     ],
   },

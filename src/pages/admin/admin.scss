@@ -5,7 +5,7 @@
   padding: 2rem 1rem;
   max-width: 600px;
   margin: 0 auto;
-  margin-bottom: 4rem;
+  margin-bottom: 8rem;
 
   &__title {
     font-family: vars.$font-primary;
@@ -111,11 +111,20 @@
   }
 
   &__button {
-    @include mixins.button-base;
-    @include mixins.button-filled;
-    @include mixins.button-full-width;
-    margin-top: 1rem;
-    font-size: vars.$font-size-base;
-    font-weight: 600;
+    &--submit {
+      @include mixins.button-filled(
+        $bg-color: vars.$color-brand,
+        $text-color: vars.$color-bg
+      );
+      margin-top: 1rem;
+      font-size: vars.$font-size-base;
+      font-weight: 600;
+    }
+    &--delete {
+      @include mixins.button-filled(
+        $bg-color: #dc3545,
+        $text-color: vars.$color-bg
+      );
+    }
   }
 }

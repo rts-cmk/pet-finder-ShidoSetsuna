@@ -17,23 +17,6 @@ function Profile() {
       <h1 className="profile-page__name">{user.name}</h1>
       <p className="profile-page__location">{user.location}</p>
       <p className="profile-page__bio">{user.bio}</p>
-
-      <section className="profile-page__favorites">
-        <h2 className="profile-page__favorites-title">Favorite Pets</h2>
-        {favoritePets && favoritePets.length > 0 ? (
-          <div className="profile-page__cards">
-            {favoritePets.map((animal) => (
-              <AnimalCard
-                key={animal.id}
-                animal={animal}
-                onFavouriteToggle={handleFavouriteToggle}
-              />
-            ))}
-          </div>
-        ) : (
-          <p className="profile-page__no-favorites">No favorite pets yet.</p>
-        )}
-      </section>
     </main>
   );
 }

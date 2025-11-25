@@ -97,6 +97,7 @@ function Favourites() {
             <AnimalCard
               key={animal.id}
               animal={animal}
+              category={animal.category}
               onFavouriteToggle={handleFavouriteToggle}
             />
           ))}

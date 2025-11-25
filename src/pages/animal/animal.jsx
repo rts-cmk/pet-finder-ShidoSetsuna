@@ -27,7 +27,9 @@ function Animal() {
             <h1 className="animal-page__name">{animal.breed}</h1>
             <EditAnimalButton
               onClick={() =>
-                navigate(`/admin?category=${category}&animalId=${animal.id}`)
+                navigate(
+                  `/admin/edit?category=${category}&animalId=${animal.id}`
+                )
               }
             />
           </div>
