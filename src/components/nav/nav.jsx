@@ -3,6 +3,7 @@ import { FiMessageCircle } from "react-icons/fi";
 import { FiHome } from "react-icons/fi";
 import { FiHeart } from "react-icons/fi";
 import { FiUser } from "react-icons/fi";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import "./nav.scss";
 
 export default function Nav() {
@@ -50,6 +51,15 @@ export default function Nav() {
               isActive("/profile") ? "nav__link--active" : ""
             }`}>
             <FiUser />
+          </Link>
+        </li>
+        <li className="nav__item">
+          <Link
+            to="/admin"
+            className={`nav__link ${
+              isActive("/admin") ? "nav__link--active" : ""
+            }`}>
+            <MdOutlineAdminPanelSettings />
           </Link>
         </li>
       </ul>

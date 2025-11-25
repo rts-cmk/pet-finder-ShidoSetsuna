@@ -8,6 +8,7 @@ import Animal from "./pages/animal/animal.jsx";
 import Profile from "./pages/profile/profile.jsx";
 import Favourites from "./pages/favourites/favourites.jsx";
 import Chat from "./pages/chat/chat.jsx";
+import Admin from "./pages/admin/admin.jsx";
 import ErrorPage from "./pages/error/error.jsx";
 //components
 import Onboarding from "./components/onboarding/onboarding.jsx";
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "chat",
         element: <Chat />,
+      },
+      {
+        path: "admin",
+        element: <Admin />,
       },
     ],
   },
